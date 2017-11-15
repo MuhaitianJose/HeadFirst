@@ -17,6 +17,7 @@ public class CurrentConditionsDisplay implements IObserver, IDisplayElement {
 
     public CurrentConditionsDisplay(WeatherData weatherData) {
         this.weatherData = weatherData;
+        weatherData.registerObserver(this);
     }
 
     @Override

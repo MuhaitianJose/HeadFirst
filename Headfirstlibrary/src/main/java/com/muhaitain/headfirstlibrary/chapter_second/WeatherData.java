@@ -1,5 +1,6 @@
 package com.muhaitain.headfirstlibrary.chapter_second;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,8 +14,8 @@ public class WeatherData implements ISubject {
     private float humidity;
     private float pressure;
 
-    public WeatherData(List<IObserver> observerList) {
-        this.observerList = observerList;
+    public WeatherData() {
+        this.observerList = new ArrayList<>();
     }
 
     @Override
@@ -34,14 +35,20 @@ public class WeatherData implements ISubject {
 
     @Override
     public void notifyObservers() {
-        for (IObserver observer:observerList){
-            observer.update(this.temperature,this.humidity,this.pressure);
+        for (IObserver observer : observerList) {
+            observer.update(this.temperature, this.humidity, this.pressure);
         }
     }
 
-    public void measurementsChanged(){
+    public void measurementsChanged() {
         notifyObservers();
     }
 
+    public void setMeasurements(float temperature, float humidity, float pressure) {
+        this.temperature = temperature;
+        this.humidity = humidity;
+        this.pressure = pressure;
+        measurementsChanged();
+    }
 
 }

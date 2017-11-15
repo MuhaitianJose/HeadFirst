@@ -1,6 +1,8 @@
 package com.muhaitain.headfirst;
 
 import android.os.Bundle;
+import android.os.FileObserver;
+import android.util.Log;
 import android.widget.TextView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,8 +14,20 @@ import android.view.MenuItem;
 
 import com.muhaitain.headfirstlibrary.chapter_first.Duck;
 import com.muhaitain.headfirstlibrary.chapter_first.MallardDuck;
+import com.muhaitain.headfirstlibrary.chapter_second.CurrentConditionsDisplay;
+import com.muhaitain.headfirstlibrary.chapter_second.WeatherData;
+import com.muhaitain.headfirstlibrary.chapter_third.Beverage;
+import com.muhaitain.headfirstlibrary.chapter_third.DarkRoast;
+import com.muhaitain.headfirstlibrary.chapter_third.Espresso;
+import com.muhaitain.headfirstlibrary.chapter_third.HouseBlend;
+import com.muhaitain.headfirstlibrary.chapter_third.Milk;
+import com.muhaitain.headfirstlibrary.chapter_third.Mocha;
+import com.muhaitain.headfirstlibrary.chapter_third.Soy;
+import com.muhaitain.headfirstlibrary.chapter_third.Whip;
 
 public class MainActivity extends AppCompatActivity {
+
+    private final String TAG = MainActivity.class.getSimpleName();
 
     // Used to load the 'native-lib' library on application startup.
     static {
@@ -27,12 +41,35 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         testDuck();
+        testWeather();
+        testStarbucks();
     }
 
     private void testDuck() {
         Duck duck = new MallardDuck();
         duck.performFly();
         duck.performQuack();
+    }
+
+    private void testWeather() {
+        WeatherData weatherData = new WeatherData();
+        CurrentConditionsDisplay currentConditionsDisplay = new CurrentConditionsDisplay(weatherData);
+        weatherData.setMeasurements(45, 89, 27);
+    }
+
+    private void testStarbucks() {
+        Beverage beverage = new Espresso();
+        Log.d(TAG, "testStarbucks: " + beverage.getDescription() + "$ " + beverage.cost());
+        Beverage beverage1 = new DarkRoast();
+        beverage1 = new Mocha(beverage1);
+        beverage1 = new Mocha(beverage1);
+        beverage1 = new Whip(beverage1);
+        Log.d(TAG, "testStarbucks: " + beverage1.getDescription() + "$ " + beverage1.cost());
+        Beverage beverage2 = new HouseBlend();
+        beverage2 = new Soy(beverage2);
+        beverage2 = new Mocha(beverage2);
+        beverage2 = new Whip(beverage2);
+        Log.d(TAG, "testStarbucks: " + beverage2.getDescription() + "$ " + beverage2.cost());
     }
 
     @Override
