@@ -6,6 +6,7 @@ import com.muhaitain.headfirstlibrary.chapter_fourth.material.Clams;
 import com.muhaitain.headfirstlibrary.chapter_fourth.material.Dough;
 import com.muhaitain.headfirstlibrary.chapter_fourth.material.Eggplant;
 import com.muhaitain.headfirstlibrary.chapter_fourth.material.FreshClams;
+import com.muhaitain.headfirstlibrary.chapter_fourth.material.MozzarellaCheese;
 import com.muhaitain.headfirstlibrary.chapter_fourth.material.ParmesanCheese;
 import com.muhaitain.headfirstlibrary.chapter_fourth.material.Pepperoni;
 import com.muhaitain.headfirstlibrary.chapter_fourth.material.PlumTomatoSauce;
@@ -22,35 +23,35 @@ import com.muhaitain.headfirstlibrary.chapter_fourth.material.Veggies;
 
 public class ChicagoPizzaIngredientFactory implements PizzaIngredientFactory {
     @Override
-    public Dough CreateDough() {
+    public Dough createDough() {
         return new ThickCrustDough();
     }
 
     @Override
-    public Sauce CreateSauce() {
+    public Sauce createSauce() {
         return new PlumTomatoSauce();
     }
 
     @Override
-    public Cheese CreateCheese() {
-        return new ParmesanCheese();
+    public Cheese createCheese() {
+        return new MozzarellaCheese();
     }
 
     @Override
-    public Veggies[] CreateVeggies() {
-        Veggies[] veggies = {new BlackOlives(),
+    public Veggies[] createVeggies() {
+        Veggies veggies[] = { new BlackOlives(),
                 new Spinach(),
-                new Eggplant()};
+                new Eggplant() };
         return veggies;
     }
 
     @Override
-    public Pepperoni CreatePepperoni() {
+    public Pepperoni createPepperoni() {
         return new SlicedPepperoni();
     }
 
     @Override
-    public Clams CreateClam() {
-        return new FreshClams();
+    public Clams createClam() {
+        return null;
     }
 }

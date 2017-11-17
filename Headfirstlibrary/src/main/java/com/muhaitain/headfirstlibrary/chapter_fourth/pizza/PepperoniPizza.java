@@ -1,13 +1,27 @@
 package com.muhaitain.headfirstlibrary.chapter_fourth.pizza;
 
+import com.muhaitain.headfirstlibrary.chapter_fourth.factory.PizzaIngredientFactory;
+
 /**
  * Created by Muhaitian on 2017/11/15.
  */
 
 public class PepperoniPizza extends Pizza {
+    PizzaIngredientFactory pizzaIngredientFactory;
+
+    public PepperoniPizza(PizzaIngredientFactory pizzaIngredientFactory) {
+        name = "ClamPizza";
+        this.pizzaIngredientFactory = pizzaIngredientFactory;
+    }
+
     @Override
     public void prepare() {
-
+        dough = pizzaIngredientFactory.createDough();
+        sauce = pizzaIngredientFactory.createSauce();
+        cheese = pizzaIngredientFactory.createCheese();
+        veggies = pizzaIngredientFactory.createVeggies();
+        pepperoni = pizzaIngredientFactory.createPepperoni();
+        clams = pizzaIngredientFactory.createClam();
     }
 
     @Override
