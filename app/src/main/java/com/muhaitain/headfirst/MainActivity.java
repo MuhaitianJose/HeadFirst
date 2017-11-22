@@ -7,11 +7,18 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.muhaitain.headfirstlibrary.chapter_eighth.CoffeeWithHook;
+import com.muhaitain.headfirstlibrary.chapter_eighth.TeaWithHook;
+import com.muhaitain.headfirstlibrary.chapter_eleventh.GumballMonitor;
 import com.muhaitain.headfirstlibrary.chapter_first.Duck;
 import com.muhaitain.headfirstlibrary.chapter_first.MallardDuck;
 import com.muhaitain.headfirstlibrary.chapter_fourth.pizzastore.CaliforniaPizzaStore;
 import com.muhaitain.headfirstlibrary.chapter_fourth.pizzastore.NYPizzaStore;
 import com.muhaitain.headfirstlibrary.chapter_fourth.pizzastore.PizzaStore;
+import com.muhaitain.headfirstlibrary.chapter_ninth.DinerMenu;
+import com.muhaitain.headfirstlibrary.chapter_ninth.PancakeHouseMenu;
+import com.muhaitain.headfirstlibrary.chapter_ninth.Waitress;
+import com.muhaitain.headfirstlibrary.chapter_ninth.component.MenuComponent;
 import com.muhaitain.headfirstlibrary.chapter_second.CurrentConditionsDisplay;
 import com.muhaitain.headfirstlibrary.chapter_second.WeatherData;
 import com.muhaitain.headfirstlibrary.chapter_seventh.appearance.Amplifier;
@@ -36,6 +43,8 @@ import com.muhaitain.headfirstlibrary.chapter_sixth.command.StereoOnWithCDComman
 import com.muhaitain.headfirstlibrary.chapter_sixth.model.GarageDoor;
 import com.muhaitain.headfirstlibrary.chapter_sixth.model.Light;
 import com.muhaitain.headfirstlibrary.chapter_sixth.model.Stereo;
+import com.muhaitain.headfirstlibrary.chapter_ten.gumball.GumballMachine;
+import com.muhaitain.headfirstlibrary.chapter_ten.sumballstate.GumballMachineState;
 import com.muhaitain.headfirstlibrary.chapter_third.Beverage;
 import com.muhaitain.headfirstlibrary.chapter_third.DarkRoast;
 import com.muhaitain.headfirstlibrary.chapter_third.Espresso;
@@ -64,8 +73,14 @@ public class MainActivity extends AppCompatActivity {
 //        testStarbucks();
 //        testFactory();
 //        testCommand();
-        testAdapter();
-        testAmplifier();
+//        testAdapter();
+//        testAmplifier();
+//        testTemplate();
+//        testIterator();
+//        testMenuComponent();
+//        testStatePattern();
+//        testGumballMachineState();
+        testProxyPattern();
     }
 
     /**
@@ -198,6 +213,109 @@ public class MainActivity extends AppCompatActivity {
 
         homeTheater.watchMovie("Raiders of the Lost Ark");
         homeTheater.endMovie();
+    }
+
+    /**
+     * 模板方法模式
+     */
+    public void testTemplate() {
+        TeaWithHook teaWithHook = new TeaWithHook();
+        CoffeeWithHook coffeeWithHook = new CoffeeWithHook();
+        Log.d(TAG, "testTemplate: Tea");
+        teaWithHook.prapareRecipe();
+        Log.d(TAG, "testTemplate: Coffee");
+        coffeeWithHook.prapareRecipe();
+    }
+
+    /**
+     * 迭代器与组合模式
+     */
+    public void testIterator() {
+        PancakeHouseMenu pancakeHouseMenu = new PancakeHouseMenu();
+        DinerMenu dinerMenu = new DinerMenu();
+        Waitress waitress = new Waitress(pancakeHouseMenu, dinerMenu);
+        waitress.printMenu();
+    }
+
+    /**
+     * 测试组合模式
+     */
+    public void testMenuComponent() {
+        MenuComponent pancakeHoseMenu = new com.muhaitain.headfirstlibrary.chapter_ninth.component.Menu("PANCAKE HOUSE MENU", "Breakfast");
+        MenuComponent dinnerMenu = new com.muhaitain.headfirstlibrary.chapter_ninth.component.Menu("DINNER MENU", "Lunch");
+        MenuComponent cafeMenu = new com.muhaitain.headfirstlibrary.chapter_ninth.component.Menu("CAFE MENU", "Dinner");
+        MenuComponent dessertMenu = new com.muhaitain.headfirstlibrary.chapter_ninth.component.Menu("DESSERT MENU", "Dessert of course!");
+        MenuComponent allMenu = new com.muhaitain.headfirstlibrary.chapter_ninth.component.Menu("ALL MENUS", "All menus combined");
+
+        pancakeHoseMenu.add(new com.muhaitain.headfirstlibrary.chapter_ninth.component.
+                MenuItem("Pasta", "Spaghetti with Marinara Sauce, and a slice of sourdough bread", false, 3.89));
+        dinnerMenu.add(new com.muhaitain.headfirstlibrary.chapter_ninth.component.
+                MenuItem("dinner", "Spaghetti with Marinara Sauce, and a slice of sourdough bread", true, 3.79));
+        cafeMenu.add(new com.muhaitain.headfirstlibrary.chapter_ninth.component.
+                MenuItem("cafe", "Spaghetti with Marinara Sauce, and a slice of sourdough bread", false, 3.69));
+        dessertMenu.add(new com.muhaitain.headfirstlibrary.chapter_ninth.component.
+                MenuItem("dessert", "Spaghetti with Marinara Sauce, and a slice of sourdough bread", true, 3.59));
+
+        allMenu.add(pancakeHoseMenu);
+        allMenu.add(dinnerMenu);
+        allMenu.add(cafeMenu);
+        allMenu.add(dessertMenu);
+
+        com.muhaitain.headfirstlibrary.chapter_ninth.component.Waitress waitress = new com.muhaitain.headfirstlibrary.chapter_ninth.component.Waitress(allMenu);
+        waitress.printMenu();
+        Log.d(TAG, "testMenuComponent: ============================================================");
+        waitress.printVegetarianMenu();
+    }
+
+    /**
+     * 状态模式
+     */
+    public void testStatePattern() {
+        GumballMachine gumballMachine = new GumballMachine(5);
+        Log.d(TAG, "gumballMachine: " + gumballMachine);
+        gumballMachine.insertQuarter();
+        gumballMachine.turnCrank();
+        Log.d(TAG, "gumballMachine: " + gumballMachine);
+        gumballMachine.insertQuarter();
+        gumballMachine.ejectQuarter();
+        gumballMachine.turnCrank();
+        Log.d(TAG, "gumballMachine: " + gumballMachine);
+        gumballMachine.insertQuarter();
+        gumballMachine.turnCrank();
+        gumballMachine.insertQuarter();
+        gumballMachine.turnCrank();
+        gumballMachine.ejectQuarter();
+        Log.d(TAG, "gumballMachine: " + gumballMachine);
+        gumballMachine.insertQuarter();
+        gumballMachine.insertQuarter();
+        gumballMachine.turnCrank();
+        gumballMachine.insertQuarter();
+        gumballMachine.turnCrank();
+        gumballMachine.insertQuarter();
+        gumballMachine.turnCrank();
+        Log.d(TAG, "gumballMachine: " + gumballMachine);
+    }
+
+    private void testGumballMachineState() {
+        GumballMachineState gumballMachineState = new GumballMachineState(5);
+        Log.d(TAG, "testGumballMachineState: " + gumballMachineState);
+        gumballMachineState.insertQuarter();
+        gumballMachineState.turnCrank();
+        Log.d(TAG, "testGumballMachineState: " + gumballMachineState);
+        gumballMachineState.insertQuarter();
+        gumballMachineState.turnCrank();
+        gumballMachineState.insertQuarter();
+        gumballMachineState.turnCrank();
+        Log.d(TAG, "testGumballMachineState: " + gumballMachineState);
+    }
+
+    /**
+     * 代理模式
+     */
+    public void testProxyPattern() {
+        GumballMachineState gumballMachineState = new GumballMachineState(112, "muhaitian");
+        GumballMonitor gumballMonitor = new GumballMonitor(gumballMachineState);
+        gumballMonitor.report();
     }
 
     @Override

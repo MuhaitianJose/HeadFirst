@@ -7,7 +7,7 @@ package com.muhaitain.headfirstlibrary.chapter_third;
 public class DarkRoast extends Beverage {
 
     public DarkRoast() {
-        description = "Dark Roast Coffee";
+        description = "Dark Roast CoffeeWithHook";
     }
 
     @Override

@@ -8,6 +8,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/HeadFirstLib" />
             <option value="$PROJECT_DIR$/Headfirstlibrary" />
             <option value="$PROJECT_DIR$/app" />
           </set>

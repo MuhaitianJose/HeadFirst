@@ -1,1 +1,1 @@
-include ':app', ':Headfirstlibrary'
+include ':app', ':Headfirstlibrary', ':HeadFirstLib'
