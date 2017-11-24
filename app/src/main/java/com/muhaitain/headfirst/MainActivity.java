@@ -52,6 +52,13 @@ import com.muhaitain.headfirstlibrary.chapter_third.HouseBlend;
 import com.muhaitain.headfirstlibrary.chapter_third.Mocha;
 import com.muhaitain.headfirstlibrary.chapter_third.Soy;
 import com.muhaitain.headfirstlibrary.chapter_third.Whip;
+import com.muhaitain.headfirstlibrary.chapter_twelfth.model.Goose;
+import com.muhaitain.headfirstlibrary.chapter_twelfth.adapter.GooseAdapter;
+import com.muhaitain.headfirstlibrary.chapter_twelfth.model.QuackCounter;
+import com.muhaitain.headfirstlibrary.chapter_twelfth.model.Quackable;
+import com.muhaitain.headfirstlibrary.chapter_twelfth.model.DuckCall;
+import com.muhaitain.headfirstlibrary.chapter_twelfth.model.RedheadDuck;
+import com.muhaitain.headfirstlibrary.chapter_twelfth.model.RubberDuck;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -80,7 +87,8 @@ public class MainActivity extends AppCompatActivity {
 //        testMenuComponent();
 //        testStatePattern();
 //        testGumballMachineState();
-        testProxyPattern();
+//        testProxyPattern();
+        testDuckSimulator();
     }
 
     /**
@@ -316,6 +324,36 @@ public class MainActivity extends AppCompatActivity {
         GumballMachineState gumballMachineState = new GumballMachineState(112, "muhaitian");
         GumballMonitor gumballMonitor = new GumballMonitor(gumballMachineState);
         gumballMonitor.report();
+    }
+
+    public void testDuckSimulator() {
+        Quackable mallDuck = new com.muhaitain.headfirstlibrary.chapter_twelfth.model.MallardDuck();
+        Quackable redheadDuck = new RedheadDuck();
+        Quackable duckCall = new DuckCall();
+        Quackable rubberDuck = new RubberDuck();
+        GooseAdapter gooseAdapter = new GooseAdapter(new Goose());
+        Log.d(TAG, "Duck Simulator ");
+        simulator(mallDuck);
+        simulator(redheadDuck);
+        simulator(duckCall);
+        simulator(rubberDuck);
+        simulator(gooseAdapter);
+        Quackable mallDuckCount = new QuackCounter(mallDuck);
+        Quackable redheadDuckCount = new QuackCounter(redheadDuck);
+        Quackable duckCallCount = new QuackCounter(duckCall);
+        Quackable rubberDuckCount = new QuackCounter(rubberDuck);
+        Quackable gooseAdapterCount = new QuackCounter(gooseAdapter);
+        Log.d(TAG, "Duck Simulator ");
+        simulator(mallDuckCount);
+        simulator(redheadDuckCount);
+        simulator(duckCallCount);
+        simulator(rubberDuckCount);
+        simulator(gooseAdapterCount);
+        Log.d(TAG, "testDuckSimulator: NumberOfQuacks="+QuackCounter.getNumberOfQuacks());
+    }
+
+    private void simulator(Quackable quackable){
+        quackable.quack();
     }
 
     @Override
